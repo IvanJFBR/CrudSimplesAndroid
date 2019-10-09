@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Aprendizado Alura</string>
+    <string name="nome">Nome</string>
+    <string name="telefone">Telefone</string>
+    <string name="email">E-mail</string>
+    <string name="salvar">Salvar</string>
+</resources>
