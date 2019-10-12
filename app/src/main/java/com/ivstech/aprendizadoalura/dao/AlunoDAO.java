@@ -1,7 +1,5 @@
 package com.ivstech.aprendizadoalura.dao;
 
-import android.util.Log;
-
 import com.ivstech.aprendizadoalura.model.Aluno;
 
 import java.util.ArrayList;
@@ -13,13 +11,21 @@ public class AlunoDAO {
     private static int contadorDeIds = 1;
 
     public boolean verificaAluno(Aluno aluno) {
-        for (Aluno a : alunos) {
-            if (aluno != null && a.getId() == aluno.getId()) {
-                return true;
-            }
+        if(getAlunoById(aluno) != null){
+            return true;
         }
 
         return false;
+    }
+
+    public Aluno getAlunoById(Aluno aluno){
+        for (Aluno a : alunos) {
+            if (aluno != null && a.getId() == aluno.getId()) {
+                return a;
+            }
+        }
+
+        return null;
     }
 
     public void salva(Aluno aluno) {
@@ -31,15 +37,22 @@ public class AlunoDAO {
     }
 
     public void updateAluno(Aluno aluno) {
-        for (Aluno a : alunos) {
-            if (a.getId() == aluno.getId()) {
-                alunos.set(alunos.indexOf(a), aluno);
-                break;
-            }
+        Aluno alunoRecebido = getAlunoById(aluno);
+
+        if(alunoRecebido != null){
+            alunos.set(alunos.indexOf(alunoRecebido), aluno);
         }
     }
 
     public List<Aluno> todos() {
         return new ArrayList<>(alunos);
+    }
+
+    public void remove(Aluno aluno) {
+        Aluno alunoRecebido = getAlunoById(aluno);
+
+        if(alunoRecebido != null){
+            alunos.remove(alunoRecebido);
+        }
     }
 }

@@ -12,11 +12,11 @@ import com.ivstech.aprendizadoalura.dao.AlunoDAO;
 import com.ivstech.aprendizadoalura.model.Aluno;
 
 import static com.ivstech.aprendizadoalura.ui.activity.ConstantesActivities.CHAVE_ALUNO;
+import static com.ivstech.aprendizadoalura.ui.activity.ConstantesActivities.TITULO_APPBAR_EDITA_ALUNO;
+import static com.ivstech.aprendizadoalura.ui.activity.ConstantesActivities.TITULO_APPBAR_NOVO_ALUNO;
 
 public class FormularioAlunoActivity extends AppCompatActivity {
 
-    private static final String TITULO_APPBAR_EDITA_ALUNO = "Edita Aluno";
-    private static final String TITULO_APPBAR_NOVO_ALUNO = "Novo Aluno";
     private EditText campoNome;
     private EditText campoTelefone;
     private EditText campoEmail;
