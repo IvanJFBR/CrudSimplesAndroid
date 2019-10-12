@@ -13,20 +13,20 @@ public class AlunoDAO {
     private static int contadorDeIds = 1;
 
     public boolean verificaAluno(Aluno aluno) {
-        boolean alunoExiste = false;
         for (Aluno a : alunos) {
             if (aluno != null && a.getId() == aluno.getId()) {
-                alunoExiste = true;
-                break;
+                return true;
             }
         }
 
-        return alunoExiste;
+        return false;
     }
 
     public void salva(Aluno aluno) {
         aluno.setId(contadorDeIds);
         alunos.add(aluno);
+
+        //Contador para atualizar ID's
         contadorDeIds++;
     }
 
