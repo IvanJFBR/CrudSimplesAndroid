@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +37,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraFabNovoAluno();
 
         configuraLista();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        getMenuInflater().inflate(R.menu.activity_lista_alunos_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.activity_lista_alunos_menu_remover){
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
+            dao.remove(alunoEscolhido);
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void configuraFabNovoAluno() {
@@ -69,7 +89,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         configuraListenerDeCliquePorItem(listaDeAlunos);
 
-        configuraListenerDeCliqueProlongadoPorItem(listaDeAlunos);
+        registerForContextMenu(listaDeAlunos);
     }
 
     private void configuraListenerDeCliquePorItem(ListView listaDeAlunos) {
@@ -79,18 +99,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
 
                 abreFormularioModoEditaAluno(alunoEscolhido);
-            }
-        });
-    }
-
-    private void configuraListenerDeCliqueProlongadoPorItem(ListView listaDeAlunos) {
-        listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Aluno alunoSelecionado = (Aluno) adapterView.getItemAtPosition(position);
-                dao.remove(alunoSelecionado);
-                adapter.remove(alunoSelecionado);
-                return false;
             }
         });
     }
